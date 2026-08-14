@@ -233,7 +233,6 @@
   .growing{background:var(--paper);border-top:1px solid var(--green-line)}
   .growing-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center}
   .growing-art{aspect-ratio:1/1;background:var(--green-soft);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;padding:30px}
-  .growing-art svg{width:100%;height:100%}
   .steps{display:grid;gap:26px;margin-top:8px}
   .step{display:grid;grid-template-columns:50px 1fr;gap:18px}
   .step-mark{width:46px;height:46px;border-radius:50%;background:var(--green-soft);color:var(--green-deep);display:grid;place-items:center;font-family:"Fraunces",serif;font-style:italic;font-size:1.05rem}
@@ -334,7 +333,6 @@
 
 <main>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="container hero-content">
       <div class="hero-copy reveal">
@@ -353,7 +351,6 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section class="about" id="about">
     <div class="container about-grid">
       <div class="about-photo reveal">
@@ -376,7 +373,6 @@
     </div>
   </section>
 
-  <!-- HISTORY -->
   <section class="history" id="history">
     <div class="container">
       <div class="section-head reveal">
@@ -414,7 +410,6 @@
     </div>
   </section>
 
-  <!-- NUTRITION -->
   <section class="nutrition" id="nutrition">
     <div class="container">
       <div class="section-head reveal">
@@ -473,7 +468,6 @@
     </div>
   </section>
 
-  <!-- COLORS -->
   <section class="colors" id="colors">
     <div class="container">
       <div class="section-head center reveal">
@@ -490,22 +484,22 @@
     </div>
   </section>
 
-  <!-- VARIETIES -->
   <section class="varieties" id="varieties">
     <div class="container">
       <div class="section-head reveal">
         <div class="eyebrow">Varieties</div>
         <h2 class="section-title">สายพันธุ์ที่<span class="accent">น่าสนใจ</span></h2>
-        <p class="section-subtitle">แต่ละสายพันธุ์มีสีสันและรสชาติเฉพาะตัว — ภาพประกอบด้านล่างสร้างขึ้นตามโทนสีจริงของแต่ละสายพันธุ์</p>
+        <p class="section-subtitle">แต่ละสายพันธุ์มีสีสันและรสชาติเฉพาะตัว</p>
       </div>
       <div class="variety-grid" id="varietyGrid"></div>
     </div>
   </section>
 
-  <!-- GROWING -->
   <section class="growing" id="growing">
     <div class="container growing-grid">
-      <div class="growing-art reveal" id="growArt"></div>
+      <div class="growing-art reveal" style="width: 100%; height: 100%; min-height: 280px; padding: 0; overflow: hidden;">
+        <img src="plant01.jpg" alt="การปลูกมัลเบอรี่" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.background='#e7f0dc';this.style.height='100%';">
+      </div>
       <div class="reveal">
         <div class="section-head">
           <div class="eyebrow">Mulberry Garden</div>
@@ -521,7 +515,6 @@
     </div>
   </section>
 
-  <!-- CTA / FEATURE -->
   <section class="feature">
     <div class="container">
       <div class="feature-box reveal">
@@ -559,8 +552,21 @@
   </div>
 </footer>
 
+<div id="bgMusicContainer" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:rgba(30,74,46,0.92);backdrop-filter:blur(10px);padding:10px 16px;border-radius:99px;box-shadow:0 10px 25px rgba(0,0,0,0.2);display:flex;align-items:center;gap:12px;color:#fff;font-size:0.85rem;border:1px solid rgba(255,255,255,0.2);">
+  <audio id="bgAudio" loop>
+    <source src="alex-morgan-nature-ambient.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <button id="musicToggleBtn" style="background:#fff;color:#1e4a2e;border:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.1);transition:0.2s;" aria-label="Play/Pause Music">
+    ▶
+  </button>
+  <div style="display:flex;flex-direction:column;line-height:1.2;">
+    <span style="font-weight:600;font-size:0.8rem;">Mulberry Ambient</span>
+    <span style="font-size:0.65rem;opacity:0.75;">Click to play music</span>
+  </div>
+</div>
+
 <script>
-/* ---------- mobile menu ---------- */
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 menuBtn.addEventListener("click", () => {
@@ -576,44 +582,26 @@ navLinks.querySelectorAll("a").forEach(link => {
   });
 });
 
-/* ---------- scroll reveal & nutrition meters ---------- */
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add("visible");
-      
-      // ค้นหาและสั่งให้แถบกราฟวิ่งทันทีที่ส่วนโภชนาการแสดงผล
       const fills = entry.target.querySelectorAll(".meter-fill");
-      if (fills.length > 0) {
-        fills.forEach(f => {
-          f.style.width = f.dataset.level + "%";
-        });
-      } else {
-        // เผื่อกรณีที่ .meter-fill อยู่ภายใน element ลูกที่ถูก observe
-        const parentFills = entry.target.querySelectorAll ? entry.target.querySelectorAll(".meter-fill") : [];
-        parentFills.forEach(f => {
-          f.style.width = f.dataset.level + "%";
-        });
-      }
+      fills.forEach(f => f.style.width = f.dataset.level + "%");
     }
   });
 }, { threshold: .14 });
 
 document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
-// เผื่อกรณีหน้าจอยาวและส่วนโภชนาการอยู่ในหน้าจอตั้งแต่โหลด ให้เรียกทำงานทันที
 window.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".nutrition .meter-fill").forEach(f => {
     f.style.width = f.dataset.level + "%";
   });
 });
 
-/* ---------- generative berry-cluster illustration ---------- */
 function berryClusterSVG({ base, shade, highlight, elongated = false, id }) {
-  const rnd = (seed) => {
-    let x = Math.sin(seed) * 10000;
-    return x - Math.floor(x);
-  };
+  const rnd = (seed) => { let x = Math.sin(seed) * 10000; return x - Math.floor(x); };
   let drupelets = "";
   const rows = elongated ? 9 : 7;
   const cols = 4;
@@ -632,87 +620,32 @@ function berryClusterSVG({ base, shade, highlight, elongated = false, id }) {
     }
   }
   const totalH = 40 + rows * (elongated ? 11 : 12) + 12;
-  return `
-  <svg viewBox="0 0 140 ${totalH + 30}" xmlns="http://www.w3.org/2000/svg">
-    <path d="M70 8 C 66 22, 72 30, 70 40" stroke="#6b8f57" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <path d="M70 14 C 55 10, 44 16, 40 28 C 52 28, 62 22, 70 14 Z" fill="#7fae5c" opacity="0.9"/>
-    <path d="M71 14 C 86 10, 97 16, 101 28 C 89 28, 79 22, 71 14 Z" fill="#6b9a4d" opacity="0.9"/>
-    <g>${drupelets}</g>
-    <ellipse cx="70" cy="${totalH + 6}" rx="30" ry="7" fill="${shade}" opacity="0.10"/>
-  </svg>`;
+  return `<svg viewBox="0 0 140 ${totalH + 30}" xmlns="http://www.w3.org/2000/svg"><path d="M70 8 C 66 22, 72 30, 70 40" stroke="#6b8f57" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M70 14 C 55 10, 44 16, 40 28 C 52 28, 62 22, 70 14 Z" fill="#7fae5c" opacity="0.9"/><path d="M71 14 C 86 10, 97 16, 101 28 C 89 28, 79 22, 71 14 Z" fill="#6b9a4d" opacity="0.9"/><g>${drupelets}</g><ellipse cx="70" cy="${totalH + 6}" rx="30" ry="7" fill="${shade}" opacity="0.10"/></svg>`;
 }
 
 const varieties = [
-  { name: "เชียงใหม่ 60", desc: "ผลมีขนาดใหญ่ สีเข้ม เหมาะสำหรับรับประทานสดและแปรรูป",
-    swatch: "#2a1029", base: "#3c1c3e", shade: "#2a1029", highlight: "#6b3a63", elongated: false },
-  { name: "กำแพงแสน", desc: "ผลมีสีแดงอมชมพู รสหวานอมเปรี้ยว และมีเอกลักษณ์",
-    swatch: "#c1425a", base: "#c1425a", shade: "#8a2e42", highlight: "#e8879a", elongated: false },
-  { name: "มัลเบอรี่ขาว", desc: "ผลสีขาวหรือครีม รสหวานนุ่ม เหมาะกับการรับประทานสด",
-    swatch: "#f2e6c8", base: "#f2e6c8", shade: "#d8c393", highlight: "#fffaf0", elongated: false },
-  { name: "ไต้หวัน", desc: "ผลยาวและมีรสชาติเข้มข้น เหมาะสำหรับการรับประทานและแปรรูป",
-    swatch: "#5c1f42", base: "#5c1f42", shade: "#391430", highlight: "#8a3a63", elongated: true }
+  { name: "เชียงใหม่ 60", desc: "ผลมีขนาดใหญ่ สีเข้ม เหมาะสำหรับรับประทานสดและแปรรูป", swatch: "#2a1029", base: "#3c1c3e", shade: "#2a1029", highlight: "#6b3a63", elongated: false },
+  { name: "กำแพงแสน", desc: "ผลมีสีแดงอมชมพู รสหวานอมเปรี้ยว และมีเอกลักษณ์", swatch: "#c1425a", base: "#c1425a", shade: "#8a2e42", highlight: "#e8879a", elongated: false },
+  { name: "มัลเบอรี่ขาว", desc: "ผลสีขาวหรือครีม รสหวานนุ่ม เหมาะกับการรับประทานสด", swatch: "#f2e6c8", base: "#f2e6c8", shade: "#d8c393", highlight: "#fffaf0", elongated: false },
+  { name: "ไต้หวัน", desc: "ผลยาวและมีรสชาติเข้มข้น เหมาะสำหรับการรับประทานและแปรรูป", swatch: "#5c1f42", base: "#5c1f42", shade: "#391430", highlight: "#8a3a63", elongated: true }
 ];
 
 const grid = document.getElementById("varietyGrid");
 varieties.forEach((v, i) => {
   const card = document.createElement("article");
   card.className = "variety reveal";
-  card.innerHTML = `
-    <div class="variety-art">${berryClusterSVG({ base: v.base, shade: v.shade, highlight: v.highlight, elongated: v.elongated, id: i + 1 })}</div>
-    <div class="variety-body">
-      <span class="v-swatch"><i style="background:${v.swatch}"></i>Mulberry Variety</span>
-      <h3>${v.name}</h3>
-      <p>${v.desc}</p>
-    </div>`;
+  card.innerHTML = `<div class="variety-art">${berryClusterSVG({ base: v.base, shade: v.shade, highlight: v.highlight, elongated: v.elongated, id: i + 1 })}</div><div class="variety-body"><span class="v-swatch"><i style="background:${v.swatch}"></i>Mulberry Variety</span><h3>${v.name}</h3><p>${v.desc}</p></div>`;
   grid.appendChild(card);
   observer.observe(card);
 });
 
-<div class="growing-art reveal">
-  <img src="plant01.jpg" alt="การปลูกมัลเบอรี่" onerror="this.style.background='#e7f0dc';this.style.height='100%';">
-</div>
-
-<!-- ---------- MUSIC PLAYER (Fixed Bottom Right) ---------- -->
-<div id="bgMusicContainer" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:rgba(30,74,46,0.92);backdrop-filter:blur(10px);padding:10px 16px;border-radius:99px;box-shadow:0 10px 25px rgba(0,0,0,0.2);display:flex;align-items:center;gap:12px;color:#fff;font-size:0.85rem;border:1px solid rgba(255,255,255,0.2);">
-  <audio id="bgAudio" loop>
-    <source src="your-music-file.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  <button id="musicToggleBtn" style="background:#fff;color:#1e4a2e;border:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.1);transition:0.2s;" aria-label="Play/Pause Music">
-    ▶
-  </button>
-  <div style="display:flex;flex-direction:column;line-height:1.2;">
-    <span style="font-weight:600;font-size:0.8rem;">Mulberry Ambient</span>
-    <span style="font-size:0.65rem;opacity:0.75;">Click to play music</span>
-  </div>
-</div>
-
-<script>
-/* ---------- background music control ---------- */
 const bgAudio = document.getElementById("bgAudio");
 const musicToggleBtn = document.getElementById("musicToggleBtn");
 let isPlaying = false;
-
 musicToggleBtn.addEventListener("click", () => {
-  if (isPlaying) {
-    bgAudio.pause();
-    musicToggleBtn.textContent = "▶";
-    musicToggleBtn.style.background = "#fff";
-    musicToggleBtn.style.color = "#1e4a2e";
-    isPlaying = false;
-  } else {
-    bgAudio.play().then(() => {
-      musicToggleBtn.textContent = "❚❚";
-      musicToggleBtn.style.background = "#e8879a";
-      musicToggleBtn.style.color = "#fff";
-      isPlaying = true;
-    }).catch(e => {
-      console.log("Audio playback blocked or file not found:", e);
-      alert("กรุณาตรวจสอบไฟล์เสียงหรือใส่ลิงก์ไฟล์เพลงที่ถูกต้องใน tag <audio>");
-    });
-  }
+  if (isPlaying) { bgAudio.pause(); musicToggleBtn.textContent = "▶"; musicToggleBtn.style.background = "#fff"; musicToggleBtn.style.color = "#1e4a2e"; isPlaying = false; }
+  else { bgAudio.play().then(() => { musicToggleBtn.textContent = "❚❚"; musicToggleBtn.style.background = "#e8879a"; musicToggleBtn.style.color = "#fff"; isPlaying = true; }).catch(e => { console.log("Audio playback:", e); alert("กรุณาเปิดเสียง"); }); }
 });
 </script>
-
 </body>
 </html>
