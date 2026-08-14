@@ -681,27 +681,26 @@ document.getElementById("growArt").innerHTML = `
 </script>
 
 <!-- ---------- MUSIC PLAYER (Fixed Bottom Right) ---------- -->
-<div id="bgMusicContainer" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:rgba(30,74,46,0.92);backdrop-filter:blur(10px);padding:10px 16px;border-radius:99px;box-shadow:0 10px 25px rgba(0,0,0,0.2);display:flex;align-items:center;gap:12px;color:#fff;font-size:0.85rem;border:1px solid rgba(255,255,255,0.2);">
+<div id="bgMusicContainer" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:rgba(30,74,46,0.92);backdrop-filter:blur(10px);padding:10px 16px;border-radius:99px;box-shadow:0 10px 25px rgba(0,0,0,0.2);display:flex;align-items:center;gap:12px;color:#fff;font-size:0.85rem;border:1px solid rgba(255,255,255,0.2);cursor:pointer;" onclick="toggleMusic()">
   <audio id="bgAudio" loop>
-    <source src="your-music-file.mp3" type="audio/mpeg">
+    <source src="alex-morgan-nature-ambient.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
-  <button id="musicToggleBtn" style="background:#fff;color:#1e4a2e;border:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:bold;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,0.1);transition:0.2s;" aria-label="Play/Pause Music">
+  <button id="musicToggleBtn" style="background:#fff;color:#1e4a2e;border:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:bold;cursor:pointer;pointer-events:none;box-shadow:0 4px 10px rgba(0,0,0,0.1);transition:0.2s;" aria-label="Play/Pause Music">
     ▶
   </button>
   <div style="display:flex;flex-direction:column;line-height:1.2;">
-    <span style="font-weight:600;font-size:0.8rem;">Mulberry Ambient</span>
+    <span style="font-weight:600;font-size:0.8rem;">Nature Ambient</span>
     <span style="font-size:0.65rem;opacity:0.75;">Click to play music</span>
   </div>
 </div>
 
 <script>
-/* ---------- background music control ---------- */
 const bgAudio = document.getElementById("bgAudio");
 const musicToggleBtn = document.getElementById("musicToggleBtn");
 let isPlaying = false;
 
-musicToggleBtn.addEventListener("click", () => {
+function toggleMusic() {
   if (isPlaying) {
     bgAudio.pause();
     musicToggleBtn.textContent = "▶";
@@ -715,11 +714,11 @@ musicToggleBtn.addEventListener("click", () => {
       musicToggleBtn.style.color = "#fff";
       isPlaying = true;
     }).catch(e => {
-      console.log("Audio playback blocked or file not found:", e);
-      alert("กรุณาตรวจสอบไฟล์เสียงหรือใส่ลิงก์ไฟล์เพลงที่ถูกต้องใน tag <audio>");
+      console.warn("ไม่สามารถเล่นเพลงได้:", e);
+      alert("ไม่พบไฟล์เพลง alex-morgan-nature-ambient.mp3 หรือเบราว์เซอร์บล็อกการเล่น");
     });
   }
-});
+}
 </script>
 
 </body>
