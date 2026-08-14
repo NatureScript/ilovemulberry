@@ -523,6 +523,222 @@
     </div>
   </section>
 
+<!-- เพิ่ม Mini Game -->
+<!-- MINI GAME: LITTLE MULBERRY GARDEN -->
+  <section class="minigame-section" id="minigame" style="background: var(--paper); border-top: 1px solid var(--green-line); padding: 80px 0;">
+    <div class="container" style="max-width: 800px;">
+      <div class="section-head center reveal">
+        <div class="eyebrow">Mini Game</div>
+        <h2 class="section-title">สวนมัลเบอรี่<span class="accent">จำลอง</span></h2>
+        <p class="section-subtitle">คลิกเก็บผลมัลเบอรี่ที่สุกงอม สะสมแต้ม และพัฒนาสวนของคุณให้สวยงาม</p>
+      </div>
+
+      <div class="game-card reveal" style="background: var(--green-soft); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden;">
+        
+        <!-- Game Stats Bar -->
+        <div class="game-stats" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; background: rgba(255,255,255,0.7); padding: 14px 24px; border-radius: 16px; border: 1px solid var(--green-line);">
+          <div>
+            <span style="font-size: 0.75rem; color: var(--muted); display: block; text-transform: uppercase; letter-spacing: 0.05em;">ผลผลิตในตะกร้า</span>
+            <strong id="scoreDisplay" style="font-size: 1.6rem; color: var(--green-deep); font-family: 'Fraunces', serif;">0</strong> <span style="font-size: 0.85rem; color: var(--green-deep);">ผล</span>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 0.75rem; color: var(--muted); display: block; text-transform: uppercase; letter-spacing: 0.05em;">พลังผลิต (CPS)</span>
+            <strong id="cpsDisplay" style="font-size: 1.2rem; color: var(--berry-purple); font-family: 'Fraunces', serif;">0.5</strong> <span style="font-size: 0.75rem; color: var(--muted);">ผล/วิ</span>
+          </div>
+        </div>
+
+        <!-- Tree & Interactive Area -->
+        <div class="game-stage" style="background: #fff; border-radius: 20px; min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; padding: 24px; border: 1px solid var(--green-line); cursor: pointer; user-select: none;" id="clickArea" title="คลิกที่นี่เพื่อเก็บผลมัลเบอรี่!">
+          
+          <div id="floatingContainer" style="position: absolute; inset: 0; pointer-events: none; overflow: hidden;"></div>
+
+          <div style="text-align: center; margin-bottom: 12px;">
+            <span id="treeStageText" style="font-size: 0.85rem; font-weight: 700; color: var(--green); background: var(--green-soft); padding: 4px 14px; border-radius: 99px;">🌱 ต้นหม่อนกำลังเติบโต...</span>
+          </div>
+
+          <!-- Tree Visual Representation -->
+          <div id="treeVisual" style="font-size: 4.5rem; transition: transform 0.1s ease; margin: 10px 0;">🌳</div>
+          
+          <!-- Progress Bar to Next Ripening -->
+          <div style="width: 220px; background: #eee; height: 8px; border-radius: 99px; overflow: hidden; margin-top: 14px;">
+            <div id="growthBar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #8fbf5e, #c1425a, #2a1029); transition: width 0.2s linear;"></div>
+          </div>
+          <p style="font-size: 0.72rem; color: var(--muted); margin-top: 6px;">คลิกที่ต้นไม้เพื่อช่วยเร่งเก็บเกี่ยวผลผลิต!</p>
+        </div>
+
+        <!-- Shop / Upgrades -->
+        <div class="game-shop" style="margin-top: 24px;">
+          <h3 style="font-size: 1rem; color: var(--green-deep); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <span>🛒</span> อัปเกรดสวนมัลเบอรี่
+          </h3>
+          <div class="shop-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            
+            <button id="buyFertilizer" class="shop-btn" style="background: #fff; border: 1px solid var(--green-line); border-radius: 14px; padding: 14px; text-align: left; transition: 0.2s; display: flex; flex-direction: column; gap: 4px;">
+              <div style="display: flex; justify-content: space-between; width: 100%; font-weight: 700; color: var(--green-deep); font-size: 0.88rem;">
+                <span>💧 ระบบรดน้ำออโต้</span>
+                <span id="fertCost" style="color: var(--berry-red);">15 ผล</span>
+              </div>
+              <span style="font-size: 0.72rem; color: var(--muted);">เพิ่มพลังผลิต +0.5 ผล/วิ</span>
+            </button>
+
+            <button id="buyBranch" class="shop-btn" style="background: #fff; border: 1px solid var(--green-line); border-radius: 14px; padding: 14px; text-align: left; transition: 0.2s; display: flex; flex-direction: column; gap: 4px;">
+              <div style="display: flex; justify-content: space-between; width: 100%; font-weight: 700; color: var(--green-deep); font-size: 0.88rem;">
+                <span>🌿 ขยายกิ่งก้าน</span>
+                <span id="branchCost" style="color: var(--berry-red);">50 ผล</span>
+              </div>
+              <span style="font-size: 0.72rem; color: var(--muted);">เพิ่มพลังผลิต +2.0 ผล/วิ</span>
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // --- MINI GAME LOGIC ---
+    let mulberryData = {
+      score: 0,
+      cps: 0.5,
+      growth: 0,
+      fertCount: 0,
+      branchCount: 0,
+      fertCost: 15,
+      branchCost: 50
+    };
+
+    // Load saved game if exists
+    if(localStorage.getItem('mulberryGame')) {
+      try {
+        const saved = JSON.parse(localStorage.getItem('mulberryGame'));
+        mulberryData = {...mulberryData, ...saved};
+      } catch(e) {}
+    }
+
+    const scoreDisplay = document.getElementById("scoreDisplay");
+    const cpsDisplay = document.getElementById("cpsDisplay");
+    const clickArea = document.getElementById("clickArea");
+    const treeVisual = document.getElementById("treeVisual");
+    const treeStageText = document.getElementById("treeStageText");
+    const growthBar = document.getElementById("growthBar");
+    const floatingContainer = document.getElementById("floatingContainer");
+    const buyFertilizer = document.getElementById("buyFertilizer");
+    const buyBranch = document.getElementById("buyBranch");
+    const fertCostEl = document.getElementById("fertCost");
+    const branchCostEl = document.getElementById("branchCost");
+
+    function updateUI() {
+      scoreDisplay.textContent = Math.floor(mulberryData.score);
+      cpsDisplay.textContent = mulberryData.cps.toFixed(1);
+      growthBar.style.width = mulberryData.growth + "%";
+      fertCostEl.textContent = mulberryData.fertCost + " ผล";
+      branchCostEl.textContent = mulberryData.branchCost + " ผล";
+
+      // Update tree visual based on growth
+      if(mulberryData.growth < 40) {
+        treeVisual.textContent = "🌱";
+        treeStageText.textContent = "🟢 ผลอ่อนสีเขียว (กำลังโต)";
+        treeStageText.style.color = "#5f9d4b";
+      } else if(mulberryData.growth < 80) {
+        treeVisual.textContent = "🌿";
+        treeStageText.textContent = "🔴 ผลเริ่มเปลี่ยนเป็นสีแดง";
+        treeStageText.style.color = "#c1425a";
+      } else {
+        treeVisual.textContent = "🍇";
+        treeStageText.textContent = "✨ ผลสุกงอมสีม่วงดำ พร้อมเก็บ!";
+        treeStageText.style.color = "#5c2a52";
+      }
+    }
+
+    // Click to harvest / interact
+    clickArea.addEventListener("click", (e) => {
+      const clickPower = 1 + (mulberryData.branchCount * 0.5);
+      mulberryData.score += clickPower;
+      mulberryData.growth += 4;
+      if(mulberryData.growth > 100) mulberryData.growth = 100;
+
+      // Floating text effect
+      const rect = clickArea.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const floatEl = document.createElement("div");
+      floatEl.textContent = "+" + clickPower.toFixed(0) + " 🍇";
+      floatEl.style.position = "absolute";
+      floatEl.style.left = x + "px";
+      floatEl.style.top = y + "px";
+      floatEl.style.color = "#c1425a";
+      floatEl.style.fontWeight = "bold";
+      floatEl.style.fontSize = "1.1rem";
+      floatEl.style.pointerEvents = "none";
+      floatEl.style.transition = "all 0.6s ease-out";
+      floatEl.style.transform = "translate(-50%, -50%)";
+      floatingContainer.appendChild(floatEl);
+
+      setTimeout(() => {
+        floatEl.style.transform = "translate(-50%, -70px)";
+        floatEl.style.opacity = "0";
+      }, 20);
+      setTimeout(() => floatEl.remove(), 600);
+
+      // Bounce animation
+      treeVisual.style.transform = "scale(1.15)";
+      setTimeout(() => treeVisual.style.transform = "scale(1)", 100);
+
+      updateUI();
+      saveGame();
+    });
+
+    // Buy Fertilizer
+    buyFertilizer.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if(mulberryData.score >= mulberryData.fertCost) {
+        mulberryData.score -= mulberryData.fertCost;
+        mulberryData.fertCount++;
+        mulberryData.cps += 0.5;
+        mulberryData.fertCost = Math.floor(mulberryData.fertCost * 1.35);
+        updateUI();
+        saveGame();
+      } else {
+        alert("ผลผลิตในตะกร้ายังไม่พอซื้อระบบรดน้ำออโต้จ้า!");
+      }
+    });
+
+    // Buy Branch Extension
+    buyBranch.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if(mulberryData.score >= mulberryData.branchCost) {
+        mulberryData.score -= mulberryData.branchCost;
+        mulberryData.branchCount++;
+        mulberryData.cps += 2.0;
+        mulberryData.branchCost = Math.floor(mulberryData.branchCost * 1.4);
+        updateUI();
+        saveGame();
+      } else {
+        alert("ผลผลิตในตะกร้ายังไม่พอขยายกิ่งก้าน!");
+      }
+    });
+
+    // Game Loop (Passive Income & Growth)
+    setInterval(() => {
+      mulberryData.score += mulberryData.cps / 10;
+      mulberryData.growth += 0.8;
+      if(mulberryData.growth > 100) mulberryData.growth = 100;
+      updateUI();
+    }, 100);
+
+    // Auto save every 5 seconds
+    function saveGame() {
+      localStorage.setItem('mulberryGame', JSON.stringify(mulberryData));
+    }
+    setInterval(saveGame, 5000);
+
+    updateUI();
+  </script>
+
+
+  
   <!-- CTA / FEATURE -->
   <section class="feature">
     <div class="container">
