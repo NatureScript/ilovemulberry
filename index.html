@@ -524,16 +524,16 @@
   </section>
 
 <!-- เพิ่ม Mini Game -->
-<!-- MINI GAME: LITTLE MULBERRY GARDEN -->
-  <section class="minigame-section" id="minigame" style="background: var(--paper); border-top: 1px solid var(--green-line); padding: 80px 0;">
-    <div class="container" style="max-width: 800px;">
-      <div class="section-head center reveal">
+<!-- MINI GAME: LITTLE MULBERRY GARDEN (SVG + Audio) -->
+  <section class="minigame-section" id="minigame" style="background: var(--paper); padding: 20px 0;">
+    <div class="container">
+      <div class="section-head center">
         <div class="eyebrow">Mini Game</div>
         <h2 class="section-title">สวนมัลเบอรี่<span class="accent">จำลอง</span></h2>
         <p class="section-subtitle">คลิกเก็บผลมัลเบอรี่ที่สุกงอม สะสมแต้ม และพัฒนาสวนของคุณให้สวยงาม</p>
       </div>
 
-      <div class="game-card reveal" style="background: var(--green-soft); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden;">
+      <div class="game-card" style="background: var(--green-soft); border-radius: var(--radius-lg); padding: 32px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative; overflow: hidden;">
         
         <!-- Game Stats Bar -->
         <div class="game-stats" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; background: rgba(255,255,255,0.7); padding: 14px 24px; border-radius: 16px; border: 1px solid var(--green-line);">
@@ -548,22 +548,41 @@
         </div>
 
         <!-- Tree & Interactive Area -->
-        <div class="game-stage" style="background: #fff; border-radius: 20px; min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; padding: 24px; border: 1px solid var(--green-line); cursor: pointer; user-select: none;" id="clickArea" title="คลิกที่นี่เพื่อเก็บผลมัลเบอรี่!">
+        <div class="game-stage" style="background: #fff; border-radius: 20px; min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; padding: 24px; border: 1px solid var(--green-line); cursor: pointer; user-select: none;" id="clickArea" title="คลิกที่ผลมัลเบอรี่เพื่อเก็บเกี่ยว!">
           
           <div id="floatingContainer" style="position: absolute; inset: 0; pointer-events: none; overflow: hidden;"></div>
 
           <div style="text-align: center; margin-bottom: 12px;">
-            <span id="treeStageText" style="font-size: 0.85rem; font-weight: 700; color: var(--green); background: var(--green-soft); padding: 4px 14px; border-radius: 99px;">🌱 ต้นหม่อนกำลังเติบโต...</span>
+            <span id="treeStageText" style="font-size: 0.85rem; font-weight: 700; color: var(--green); background: #f6faf1; padding: 4px 14px; border-radius: 99px;">🌱 ผลอ่อนสีเขียว (กำลังโต)</span>
           </div>
 
-          <!-- Tree Visual Representation -->
-          <div id="treeVisual" style="font-size: 4.5rem; transition: transform 0.1s ease; margin: 10px 0;">🌳</div>
-          
-          <!-- Progress Bar to Next Ripening -->
-          <div style="width: 220px; background: #eee; height: 8px; border-radius: 99px; overflow: hidden; margin-top: 14px;">
-            <div id="growthBar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #8fbf5e, #c1425a, #2a1029); transition: width 0.2s linear;"></div>
+          <!-- SVG Mulberry Cluster Icon -->
+          <div id="mulberryIconBox" style="transition: transform 0.15s ease; margin: 15px 0; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));">
+            <svg id="mulberrySvg" width="70" height="90" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 15 C 45 30, 52 40, 50 50" stroke="#5f9d4b" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <path d="M50 25 C 35 18, 25 25, 20 38 C 35 40, 42 32, 50 25 Z" fill="#7fae5c"/>
+              <path d="M51 25 C 66 18, 76 25, 81 38 C 66 40, 59 32, 51 25 Z" fill="#6b9a4d"/>
+              
+              <g id="berryDrupelets">
+                <circle cx="50" cy="45" r="10" fill="var(--berry-current)" opacity="0.95"/>
+                <circle cx="41" cy="55" r="11" fill="var(--berry-current)" opacity="0.95"/>
+                <circle cx="59" cy="55" r="11" fill="var(--berry-current)" opacity="0.95"/>
+                <circle cx="36" cy="68" r="12" fill="var(--berry-current)" opacity="0.95"/>
+                <circle cx="50" cy="66" r="12" fill="var(--berry-current)" opacity="0.95"/>
+                <circle cx="64" cy="68" r="12" fill="var(--berry-current)" opacity="0.95"/>
+                <circle cx="41" cy="81" r="11" fill="var(--berry-current)" opacity="0.95"/>
+                <circle cx="59" cy="81" r="11" fill="var(--berry-current)" opacity="0.95"/>
+                <circle cx="50" cy="94" r="10" fill="var(--berry-current)" opacity="0.95"/>
+                <circle cx="50" cy="106" r="7" fill="var(--berry-current)" opacity="0.95"/>
+              </g>
+            </svg>
           </div>
-          <p style="font-size: 0.72rem; color: var(--muted); margin-top: 6px;">คลิกที่ต้นไม้เพื่อช่วยเร่งเก็บเกี่ยวผลผลิต!</p>
+          
+          <!-- Progress Bar -->
+          <div style="width: 220px; background: #eee; height: 8px; border-radius: 99px; overflow: hidden; margin-top: 14px;">
+            <div id="growthBar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #90c676, #e8879a, #5c2a52); transition: width 0.2s linear;"></div>
+          </div>
+          <p style="font-size: 0.72rem; color: var(--muted); margin-top: 6px;">คลิกที่ผลมัลเบอรี่เพื่อช่วยเร่งเก็บเกี่ยว!</p>
         </div>
 
         <!-- Shop / Upgrades -->
@@ -573,7 +592,7 @@
           </h3>
           <div class="shop-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             
-            <button id="buyFertilizer" class="shop-btn" style="background: #fff; border: 1px solid var(--green-line); border-radius: 14px; padding: 14px; text-align: left; transition: 0.2s; display: flex; flex-direction: column; gap: 4px;">
+            <button id="buyFertilizer" class="shop-btn" style="background: #fff; border: 1px solid var(--green-line); border-radius: 14px; padding: 14px; text-align: left; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; gap: 4px;">
               <div style="display: flex; justify-content: space-between; width: 100%; font-weight: 700; color: var(--green-deep); font-size: 0.88rem;">
                 <span>💧 ระบบรดน้ำออโต้</span>
                 <span id="fertCost" style="color: var(--berry-red);">15 ผล</span>
@@ -581,7 +600,7 @@
               <span style="font-size: 0.72rem; color: var(--muted);">เพิ่มพลังผลิต +0.5 ผล/วิ</span>
             </button>
 
-            <button id="buyBranch" class="shop-btn" style="background: #fff; border: 1px solid var(--green-line); border-radius: 14px; padding: 14px; text-align: left; transition: 0.2s; display: flex; flex-direction: column; gap: 4px;">
+            <button id="buyBranch" class="shop-btn" style="background: #fff; border: 1px solid var(--green-line); border-radius: 14px; padding: 14px; text-align: left; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; gap: 4px;">
               <div style="display: flex; justify-content: space-between; width: 100%; font-weight: 700; color: var(--green-deep); font-size: 0.88rem;">
                 <span>🌿 ขยายกิ่งก้าน</span>
                 <span id="branchCost" style="color: var(--berry-red);">50 ผล</span>
@@ -597,7 +616,6 @@
   </section>
 
   <script>
-    // --- MINI GAME LOGIC ---
     let mulberryData = {
       score: 0,
       cps: 0.5,
@@ -608,18 +626,50 @@
       branchCost: 50
     };
 
-    // Load saved game if exists
-    if(localStorage.getItem('mulberryGame')) {
+    if(localStorage.getItem('mulberrySoundGame')) {
       try {
-        const saved = JSON.parse(localStorage.getItem('mulberryGame'));
+        const saved = JSON.parse(localStorage.getItem('mulberrySoundGame'));
         mulberryData = {...mulberryData, ...saved};
       } catch(e) {}
+    }
+
+    // ฟังก์ชันสร้างเสียง "ปริ๋งๆ" ด้วย Web Audio API
+    let audioCtx = null;
+    function playPopSound() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        osc.type = 'sine';
+        // เสียงโทนสูงแนวปริ๋งๆ (เริ่มจากโน้ตสูงแล้วพุ่งขึ้นไปอีกนิด)
+        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // โน้ต D5
+        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.08); // โน้ต A5
+
+        gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.12);
+      } catch(e) {
+        // ป้องกันกรณีเบราว์เซอร์บล็อก AudioContext ก่อนมี User Interaction
+      }
     }
 
     const scoreDisplay = document.getElementById("scoreDisplay");
     const cpsDisplay = document.getElementById("cpsDisplay");
     const clickArea = document.getElementById("clickArea");
-    const treeVisual = document.getElementById("treeVisual");
+    const mulberryIconBox = document.getElementById("mulberryIconBox");
+    const mulberrySvg = document.getElementById("mulberrySvg");
     const treeStageText = document.getElementById("treeStageText");
     const growthBar = document.getElementById("growthBar");
     const floatingContainer = document.getElementById("floatingContainer");
@@ -635,36 +685,44 @@
       fertCostEl.textContent = mulberryData.fertCost + " ผล";
       branchCostEl.textContent = mulberryData.branchCost + " ผล";
 
-      // Update tree visual based on growth
+      let berryColor = "#90c676";
+      let text = "🌱 ผลอ่อนสีเขียว (กำลังโต)";
+      let textColor = "#5f9d4b";
+
       if(mulberryData.growth < 40) {
-        treeVisual.textContent = "🌱";
-        treeStageText.textContent = "🟢 ผลอ่อนสีเขียว (กำลังโต)";
-        treeStageText.style.color = "#5f9d4b";
+        berryColor = "#90c676";
+        text = "🌱 ผลอ่อนสีเขียว (กำลังโต)";
+        textColor = "#5f9d4b";
       } else if(mulberryData.growth < 80) {
-        treeVisual.textContent = "🌿";
-        treeStageText.textContent = "🔴 ผลเริ่มเปลี่ยนเป็นสีแดง";
-        treeStageText.style.color = "#c1425a";
+        berryColor = "#c1425a";
+        text = "🔴 ผลเริ่มเปลี่ยนเป็นสีแดง";
+        textColor = "#c1425a";
       } else {
-        treeVisual.textContent = "🍇";
-        treeStageText.textContent = "✨ ผลสุกงอมสีม่วงดำ พร้อมเก็บ!";
-        treeStageText.style.color = "#5c2a52";
+        berryColor = "#4a1c40";
+        text = "✨ ผลสุกงอมสีม่วงดำ พร้อมเก็บ!";
+        textColor = "#5c2a52";
       }
+
+      mulberrySvg.style.setProperty('--berry-current', berryColor);
+      treeStageText.textContent = text;
+      treeStageText.style.color = textColor;
+      treeStageText.style.backgroundColor = textColor === "#5c2a52" ? "#f6f1f5" : "#f6faf1";
     }
 
-    // Click to harvest / interact
     clickArea.addEventListener("click", (e) => {
+      playPopSound(); // เรียกเสียงปริ๋งๆ ตอนคลิก
+
       const clickPower = 1 + (mulberryData.branchCount * 0.5);
       mulberryData.score += clickPower;
       mulberryData.growth += 4;
       if(mulberryData.growth > 100) mulberryData.growth = 100;
 
-      // Floating text effect
       const rect = clickArea.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       
       const floatEl = document.createElement("div");
-      floatEl.textContent = "+" + clickPower.toFixed(0) + " 🍇";
+      floatEl.textContent = "+" + clickPower.toFixed(0) + " 🧺";
       floatEl.style.position = "absolute";
       floatEl.style.left = x + "px";
       floatEl.style.top = y + "px";
@@ -682,17 +740,28 @@
       }, 20);
       setTimeout(() => floatEl.remove(), 600);
 
-      // Bounce animation
-      treeVisual.style.transform = "scale(1.15)";
-      setTimeout(() => treeVisual.style.transform = "scale(1)", 100);
+      if(mulberryData.growth === 100) {
+        const sparkle = document.createElement("div");
+        sparkle.innerHTML = "✨";
+        sparkle.style.position = "absolute";
+        sparkle.style.left = (x + 10) + "px";
+        sparkle.style.top = (y - 20) + "px";
+        sparkle.style.fontSize = "1.5rem";
+        sparkle.style.animation = "sparkle 0.5s ease-out";
+        floatingContainer.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 500);
+      }
+
+      mulberryIconBox.style.transform = "scale(1.15)";
+      setTimeout(() => mulberryIconBox.style.transform = "scale(1)", 120);
 
       updateUI();
       saveGame();
     });
 
-    // Buy Fertilizer
     buyFertilizer.addEventListener("click", (e) => {
       e.stopPropagation();
+      playPopSound();
       if(mulberryData.score >= mulberryData.fertCost) {
         mulberryData.score -= mulberryData.fertCost;
         mulberryData.fertCount++;
@@ -705,9 +774,9 @@
       }
     });
 
-    // Buy Branch Extension
     buyBranch.addEventListener("click", (e) => {
       e.stopPropagation();
+      playPopSound();
       if(mulberryData.score >= mulberryData.branchCost) {
         mulberryData.score -= mulberryData.branchCost;
         mulberryData.branchCount++;
@@ -720,7 +789,6 @@
       }
     });
 
-    // Game Loop (Passive Income & Growth)
     setInterval(() => {
       mulberryData.score += mulberryData.cps / 10;
       mulberryData.growth += 0.8;
@@ -728,15 +796,13 @@
       updateUI();
     }, 100);
 
-    // Auto save every 5 seconds
     function saveGame() {
-      localStorage.setItem('mulberryGame', JSON.stringify(mulberryData));
+      localStorage.setItem('mulberrySoundGame', JSON.stringify(mulberryData));
     }
     setInterval(saveGame, 5000);
 
     updateUI();
   </script>
-
 
   
   <!-- CTA / FEATURE -->
