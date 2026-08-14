@@ -309,7 +309,7 @@
     .hero-grid,.about-grid,.growing-grid,.nutrition-grid{grid-template-columns:1fr}
     .hero-visual{max-width:420px;margin:0 auto}
     .about-photo{max-width:440px;margin:0 auto}
-    .benefit-grid,.variety-grid{grid-template-columns:repeat(2,1fr)}
+    .variety-grid{grid-template-columns:repeat(2,1fr)}
     .color-grid{grid-template-columns:repeat(2,1fr);row-gap:34px}
   }
   @media(max-width:650px){
@@ -530,7 +530,7 @@
       <div class="section-head reveal">
         <div class="eyebrow">Varieties</div>
         <h2 class="section-title">สายพันธุ์ที่<span class="accent">น่าสนใจ</span></h2>
-        <p class="section-subtitle">แต่ละสายพันธุ์มีสีสันและรสชาติเฉพาะตัว — ภาพประกอบด้านล่างสร้างขึ้นตามโทนสีจริงของแต่ละสายพันธุ์</p>
+        <p class="section-subtitle">แต่ละสายพันธุ์มีลักษณะเด่นและรสชาติเฉพาะตัว — คัดสรรสายพันธุ์ยอดนิยมมาให้ศึกษา</p>
       </div>
       <div class="variety-grid" id="varietyGrid"></div>
     </div>
@@ -711,11 +711,32 @@ if (heroArt) {
 const varietyGrid = document.getElementById("varietyGrid");
 if (varietyGrid) {
   const varietiesData = [
-    { name: "เชียงใหม่ (Chiang Mai)", swatch: "#c1425a", desc: "ผลยาว ผลดก รสชาติหวานอมเปรี้ยวสดชื่น เป็นที่นิยมปลูกแพร่หลายในไทย", art: { base: "#c1425a", shade: "#8a2a3d", highlight: "#f2a2b2", elongated: true, id: 2 } },
-    { name: "กำแพงแสน (KPS)", swatch: "#5c2a52", desc: "ผลใหญ่ยาว เนื้อหนา หวานฉ่ำ ทานสดอร่อย ออกผลสม่ำเสมอตลอดปี", art: { base: "#5c2a52", shade: "#2a1029", highlight: "#a05b92", elongated: true, id: 3 } },
-    { name: "สตอเบอรี่ (Strawberry Mulberry)", swatch: "#e8879a", desc: "รูปทรงคล้ายสตรอว์เบอร์รี่ สีชมพูอมแดง รสชาติหวานนุ่มนวลเป็นเอกลักษณ์", art: { base: "#e8879a", shade: "#c1425a", highlight: "#ffd6de", elongated: false, id: 4 } },
-    { name: "ออสเตรเลีย (Black Mulberry)", swatch: "#2a1029", desc: "ผลกลมโตสีดำสนิท เมื่อสุกเต็มที่จะมีรสหวานเข้มข้น หอมละมุน", art: { base: "#2a1029", shade: "#120512", highlight: "#6b3360", elongated: false, id: 5 } }
+    { 
+      name: "เชียงใหม่ (Chiang Mai)", 
+      swatch: "#c1425a", 
+      desc: "สายพันธุ์ยอดนิยมในไทย ผลยาวเรียว สีแดงสดถึงม่วงเข้ม รสชาติหวานอมเปรี้ยวจัดจ้าน ให้ผลผลิตดก ทนทานต่อสภาพอากาศ และเติบโตได้ดีในทุกภูมิภาค", 
+      art: { base: "#c1425a", shade: "#8a2a3d", highlight: "#f2a2b2", elongated: true, id: 2 } 
+    },
+    { 
+      name: "กำแพงแสน (KPS)", 
+      swatch: "#5c2a52", 
+      desc: "ผลใหญ่ยาว เนื้อหนาแน่น ฉ่ำน้ำ รสชาติหวานนุ่มนวลอมเปรี้ยวนิดๆ เหมาะสำหรับการรับประทานสดเป็นผลไม้หรือนำไปทำสมูทตี้เพื่อสุขภาพ", 
+      art: { base: "#5c2a52", shade: "#2a1029", highlight: "#a05b92", elongated: true, id: 3 } 
+    },
+    { 
+      name: "สตอเบอรี่ (Strawberry Mulberry)", 
+      swatch: "#e8879a", 
+      desc: "ลักษณะเด่นคือรูปทรงผลสั้นป้อมคล้ายสตรอว์เบอร์รี่ สีชมพูอมแดงสวยงาม รสชาติหวานละมุน กลิ่นหอมเป็นเอกลักษณ์ นิยมปลูกประดับและทานสด", 
+      art: { base: "#e8879a", shade: "#c1425a", highlight: "#ffd6de", elongated: false, id: 4 } 
+    },
+    { 
+      name: "ออสเตรเลีย (Black Mulberry)", 
+      swatch: "#2a1029", 
+      desc: "ผลกลมโตและยาว สีดำสนิทเมื่อสุกเต็มที่ รสชาติหวานจัด เข้มข้น และมีปริมาณสารต้านอนุมูลอิสระสูง นิยมนำมาแปรรูปเป็นแยม ไวน์ หรืออบแห้ง", 
+      art: { base: "#2a1029", shade: "#120512", highlight: "#6b3360", elongated: false, id: 5 } 
+    }
   ];
+  
   varietyGrid.innerHTML = varietiesData.map(v => `
     <div class="variety reveal">
       <div class="variety-art">${berryClusterSVG(v.art)}</div>
