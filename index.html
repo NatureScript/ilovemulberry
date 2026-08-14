@@ -267,11 +267,19 @@
   .variety-body h3{color:var(--green-deep);font-size:1.08rem;margin-bottom:6px}
   .variety-body p{color:var(--muted);font-size:.85rem}
 
-  /* ---------- GROWING ---------- */
+  /* ---------- GROWING (ใช้ mulberry_bg.png เป็นพื้นหลังหลัก) ---------- */
   .growing{background:var(--paper);border-top:1px solid var(--green-line)}
   .growing-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center}
-  .growing-art{aspect-ratio:1/1;background:var(--green-soft);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;}
-  .growing-art img{width:100%;height:100%;object-fit:cover;display:block}
+  .growing-art{
+    aspect-ratio:1/1;
+    background-image: url('mulberry_bg.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+  }
   .steps{display:grid;gap:26px;margin-top:8px}
   .step{display:grid;grid-template-columns:50px 1fr;gap:18px}
   .step-mark{width:46px;height:46px;border-radius:50%;background:var(--green-soft);color:var(--green-deep);display:grid;place-items:center;font-family:"Fraunces",serif;font-style:italic;font-size:1.05rem}
@@ -392,7 +400,7 @@
     <div class="container about-grid">
       <div class="about-photo reveal">
         <div class="ring"></div>
-        <img src="mulberry04.jpg" alt="ช่อผลมัลเบอรี่สีแดงและม่วงดำบนกิ่ง ท่ามกลางใบสีเขียว" onerror="this.style.background='#e7f0dc';this.style.height='460px';">
+        <img src="mulberry_bg.png" alt="ช่อผลมัลเบอรี่สีแดงและม่วงดำบนกิ่ง" onerror="this.style.background='#e7f0dc';this.style.height='460px';">
         <div class="tag"><strong>100%</strong><span>ธรรมชาติ</span></div>
       </div>
       <div class="about-copy reveal">
@@ -536,12 +544,10 @@
     </div>
   </section>
 
-  <!-- GROWING (เปลี่ยนเป็นภาพถ่าย <img> แทน SVG เดิม) -->
+  <!-- GROWING (ใช้ภาพพื้นหลัง mulberry_bg.png) -->
   <section class="growing" id="growing">
     <div class="container growing-grid">
-      <div class="growing-art reveal">
-        <img src="mulberry04.jpg" alt="ต้นอ่อนมัลเบอรี่ในถุงปลูก" onerror="this.style.background='#e7f0dc';this.style.height='400px';">
-      </div>
+      <div class="growing-art reveal"></div>
       <div class="reveal">
         <div class="section-head">
           <div class="eyebrow">Mulberry Garden</div>
@@ -561,7 +567,7 @@
   <section class="feature">
     <div class="container">
       <div class="feature-box reveal">
-        <img src="mulberry04.jpg" alt="ผลมัลเบอรี่บนกิ่งและใบหม่อน" onerror="this.style.background='#1e4a2e';this.style.height='420px';">
+        <img src="mulberry_bg.png" alt="ผลมัลเบอรี่บนกิ่งและใบหม่อน" onerror="this.style.background='#1e4a2e';this.style.height='420px';">
         <div class="feature-copy">
           <div class="eyebrow">From Garden to Table</div>
           <h2>ความสดที่เริ่มต้นจากต้นหม่อน</h2>
@@ -707,7 +713,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </svg>`;
   }
 
-  /* Render Hero and Varieties SVG content */
+  /* Render Hero SVG content */
   const heroArt = document.getElementById("heroArt");
   if (heroArt) {
     heroArt.innerHTML = berryClusterSVG({ base: "#5c2a52", shade: "#2a1029", highlight: "#e8879a", elongated: true, id: 1 });
